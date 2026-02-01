@@ -37,8 +37,9 @@ This repository provides a numerical framework for solving the TDSE for a harmon
 
 ---
 ## 📄 License
-See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👤 Author
 **Sahil Sarbadhikary**  
+- GitHub: [@yourusername](https://github.com/sahil-9915)
 
