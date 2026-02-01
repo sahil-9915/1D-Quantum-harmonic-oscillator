@@ -33,3 +33,12 @@ This repository provides a numerical framework for solving the TDSE for a harmon
 - `x_discretization` - Spatial grid array
 - `V` - Potential energy array
 - `dx` - Spatial step size
+
+
+---
+## 📄 License
+See the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+**Sahil Sarbadhikary**  
+
