@@ -24,15 +24,6 @@ This repository provides a numerical framework for solving the TDSE for a harmon
 - `plot_expectation_x()` - Plot ⟨x⟩ vs time (0 to 10 with default parameters)
 - `plot_expectation_var()` - Plot variance Δx² = ⟨x²⟩ - ⟨x⟩² vs time
 
-## Attributes (Available After Methods)
-- `pdf` - Probability density |ψ(x)|² (after evolution)
-- `expectation_x` - Position expectation value ⟨x⟩
-- `expectation_x2` - ⟨x²⟩ expectation value
-- `norm` - Wavefunction normalization
-- `evolved_wavefunction` - Current wavefunction state
-- `x_discretization` - Spatial grid array
-- `V` - Potential energy array
-- `dx` - Spatial step size
 
 
 ---
