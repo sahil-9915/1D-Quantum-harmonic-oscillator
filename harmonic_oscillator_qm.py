@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 class QuantumSimulator:
      
+     
      def __init__(self, L, x_min, x_max):
          
          self.L=L
@@ -16,6 +17,7 @@ class QuantumSimulator:
          self.x0=None
          self.omega=None
          self.tau=None
+         self.tau_default=0.00025
          self.timesteps=None
          self.x_discretization = None
          self.dx = None
@@ -23,6 +25,10 @@ class QuantumSimulator:
          self.init_wavefunction = None
          self.evolved_wavefunction = None
          self.norm = None
+         self.expectation_x = None
+         self.expectation_x2 = None
+         self.time_discretization = np.linspace(0, 10, 101)
+
          
          self.discretization()
         
@@ -50,9 +56,6 @@ class QuantumSimulator:
         self.norm = np.sqrt(norm_squared)
         return self.norm
      
-     def probability_density(self):
-         self.pdf = np.abs(self.evolved_wavefunction)**2
-         return self.pdf
      
      def plot_probability_density(self):
          prob_density = self.probability_density()
@@ -61,18 +64,18 @@ class QuantumSimulator:
          ax.fill_between (self.x_discretization, 0, prob_density, alpha=0.3, color='skyblue', label='Probability')
          
          ax.set_xlim(self.x_min, self.x_max)
-         ax.set_ylim(0, 1.1 * np.max(prob_density))
+         ax.set_ylim(0, 1.5)
 
          ax.set_xlabel('Position (x)', fontsize=14, fontweight='bold')
          ax.set_ylabel('Probability Density', fontsize=14, fontweight='bold')
          ax.grid(True, alpha=0.3, linestyle='--')
          ax.legend(fontsize=12, loc='best')
          plt.show()
-    
 
      def discrete_Potential(self, omega):
         #define the discretized Harmonic Oscillator potential
         self.V=  0.5 * (omega**2) * (self.x_discretization**2 )
+        self.omega=omega
 
 
      def approximate_evolution(self,tau,time):
@@ -124,10 +127,67 @@ class QuantumSimulator:
         self.timesteps= int(time/tau)
         self.approx_evolution = np.linalg.matrix_power(self.approx_time_step, self.timesteps)    
         self.evolved_wavefunction = self.approx_evolution @ self.init_wavefunction
+        self.pdf = np.abs(self.evolved_wavefunction)**2
+        self.expectation_x= np.trapz(self.pdf*self.x_discretization, self.x_discretization)
+        self.expectation_x2= np.trapz(self.pdf*(self.x_discretization**2), self.x_discretization)
 
         return self.evolved_wavefunction
+     
+
+     def plot_expectation_x(self):
+         temp_expectation_x_array = np.zeros(self.time_discretization.shape)
+         t_wavefunction=self.init_wavefunction
+         n=0
+         delta= float(self.time_discretization[1]-self.time_discretization[0])
+         for t in range(len(self.time_discretization)):
+             temp_wavefunction=self.approximate_evolution(self.tau_default,delta)
+             self.init_wavefunction=temp_wavefunction
+             temp_expectation_x_array[n]=self.expectation_x
+             n=n+1
+
+         self.init_wavefunction= t_wavefunction
+         
+         plt.figure(figsize=(12, 6))
+         plt.plot(self.time_discretization, temp_expectation_x_array, 'b-', linewidth=2.5, marker='o', markersize=4, alpha=0.7)
+
+         plt.xlabel('Time', fontsize=14, fontweight='bold')
+         plt.ylabel('Expectation Value ⟨x⟩', fontsize=14, fontweight='bold')
+         plt.title('Time Evolution of Position Expectation Value', fontsize=16, fontweight='bold')
+
+         plt.grid(True, alpha=0.3, linestyle='--')
+         plt.xlim(0, 10)
+         plt.ylim(-self.omega-0.5,self.omega+0.5)
+         plt.show()
+
+     def plot_expectation_x2(self):
+         temp_expectation_x2_array = np.zeros(self.time_discretization.shape)
+         t_wavefunction=self.init_wavefunction
+         n=0
+         delta= float(self.time_discretization[1]-self.time_discretization[0])
+         for t in range(len(self.time_discretization)):
+             temp_wavefunction=self.approximate_evolution(self.tau_default,delta)
+             self.init_wavefunction=temp_wavefunction
+             temp_expectation_x2_array[n]=self.expectation_x2
+             n=n+1
+
+         self.init_wavefunction= t_wavefunction
+         
+         plt.figure(figsize=(12, 6))
+         plt.plot(self.time_discretization, temp_expectation_x2_array, 'b-', linewidth=2.5, marker='o', markersize=4, alpha=0.7)
+
+         plt.xlabel('Time', fontsize=14, fontweight='bold')
+         plt.ylabel('Expectation Value ⟨x⟩²', fontsize=14, fontweight='bold')
+         plt.title('Time Evolution of ⟨x⟩²', fontsize=16, fontweight='bold')
+
+         plt.grid(True, alpha=0.3, linestyle='--')
+         plt.xlim(0, 10)
+         plt.show()
+
+             
+         
+         
         
-        
+     
         
      
 
