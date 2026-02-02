@@ -19,7 +19,7 @@ This repository provides a numerical framework for solving the TDSE for a harmon
   - Returns evolved wavefunction and updates probability density/expectation values
 
 ## Analysis & Computation
-- `compute_norm()` - Calculate and return wavefunction normalization ∫|ψ|²dx
+- `compute_norm()` - Calculate and return wavefunction normalization sqrt(∫ |ψ|² dx)
 - `plot_probability_density()` - Visualize |ψ(x)|² with shaded probability region
 - `plot_expectation_x()` - Plot ⟨x⟩ vs time (0 to 10 with default parameters)
 - `plot_expectation_var()` - Plot variance Δx² = ⟨x²⟩ - ⟨x⟩² vs time
