@@ -47,9 +47,9 @@ $$W(x, p) = \frac{1}{\pi} \int_{-\infty}^{\infty} \psi^*(x+y)\,\psi(x-y)\, e^{2i
 
 When the oscillator is coupled to an environment, the density matrix $\rho$ evolves under:
 
-$$\frac{d\rho}{dt} = -i[\hat{H}, \rho] + \sum_k \gamma_k \mathcal{D}[L_k](\rho)$$
+$$\frac{d\rho}{dt} = -i[\hat{H}, \rho] + \sum_k \gamma_k \mathcal{D}{[L_k]}(\rho)$$
 
-$$\mathcal{D}[L](\rho) = L\rho L^\dagger - \frac{1}{2}\left(L^\dagger L\,\rho + \rho\, L^\dagger L\right)$$
+$$\mathcal{D}{[L]}(\rho) = L\rho L^\dagger - \frac{1}{2}\left(L^\dagger L\,\rho + \rho\, L^\dagger L\right)$$
 
 Two noise channels are supported:
 
